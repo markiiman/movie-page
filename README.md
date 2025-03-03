@@ -1,12 +1,15 @@
-# React + Vite
+## Introduction
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a sample React.js + Vite single page website that displays movies from an external API, with search functionality and monitor trending movies through user searches
 
-Currently, two official plugins are available:
+## Technologies Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React
+- Vite
+- Tailwind CSS
+- Appwrite
+- [TMDB](https://www.themoviedb.org/) (for the API)
 
-## Expanding the ESLint configuration
+## Demo Site
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+You can visit the demo site [here](https://movie-page-jet.vercel.app/)
