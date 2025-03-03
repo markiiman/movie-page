@@ -25,6 +25,9 @@ function App() {
   const [errorMsg, setErrorMsg] = useState(null);
   
   const [trendingMovies, setTrendingMovies] = useState([]);
+  const [isTrendingLoading, setIsTrendingLoading] = useState(false);
+  const [trendingErrorMsg, setTrendingErrorMsg] = useState(null);
+
 
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]);
 
@@ -65,12 +68,17 @@ function App() {
   };
 
   const loadTrendingMovies = async () => {
+    setIsTrendingLoading(true);
+    setTrendingErrorMsg("");
+
     try {
       const movies = await getTrendingMovies();
 
       setTrendingMovies(movies);
     } catch (error) {
       console.error(`Error fetching trending movies: ${error}`);
+    } finally {
+      setIsTrendingLoading(false);
     }
   }
 
@@ -95,22 +103,29 @@ function App() {
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </header>
 
-        {trendingMovies.length > 0 && (
-          <section className="trending">
-            <h2>Trending Movies</h2>
-            <ul>
-              {trendingMovies.map((movie, index) => (
-                <li key={movie.$id}>
-                  <p>{index + 1}</p>
-                  <img src={movie.poster_url} alt={movie.title} />
-                </li>
-              ))}
-            </ul>
-          </section> 
-        )}
+        <section className="trending">
+          <h2 className="mt-10">Trending Movies</h2>
+
+          {isTrendingLoading ? (
+            <Spinner />
+          ) : trendingErrorMsg ? (
+            <p className="text-red-500">{trendingErrorMsg}</p> 
+          ) : (
+            trendingMovies.length > 0 && (
+              <ul>
+                {trendingMovies.map((movie, index) => (
+                  <li key={movie.$id}>
+                    <p>{index + 1}</p>
+                    <img src={movie.poster_url} alt={movie.title} />
+                  </li>
+                ))}
+              </ul>
+            )
+          )}
+        </section> 
 
         <section className="all-movies">
-          <h2>All Movies</h2>
+          <h2 className="mt-10">All Movies</h2>
 
           {isLoading ? (
             <Spinner />
